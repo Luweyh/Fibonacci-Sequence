@@ -1,4 +1,4 @@
-TITLE  Fibonacci Numbers   (Project_2.asm)
+TITLE  Fibonacci Numbers   (fib_sequence.asm)
 
 ; Author: Luwey Hon
 ; Description: This program first includes a heading and afterwards presents instructions
@@ -28,12 +28,12 @@ INCLUDE Irvine32.inc
 										
 
 ; variables that we get info from user
-	user_name			BYTE	33 DUP(0)	; this will hold the user name
+	user_name			BYTE	33 DUP(0)		; this will hold the user name
 	fib_amount			DWORD	?			; How far in the fibonacci sequence they requested
 	re_do				DWORD	?			; will ask if they would like to do the fib sequence again
 	incredible			DWORD	?			; will ask to see if they would like to see something incredible
-	total_all_sum		DWORD	?			; total sum for fib sequence of all tries
-	total_current_sum	DWORD	?			; total sum for most current fib sequence
+	total_all_sum		DWORD	?				; total sum for fib sequence of all tries
+	total_current_sum	DWORD	?				; total sum for most current fib sequence
 
 ; variables for printing purposes 
 	name_prompt			BYTE	"What's your name? ",0
@@ -58,7 +58,7 @@ INCLUDE Irvine32.inc
 	first_fib_num		DWORD	1			; it initalizes at 1
 	second_fib_num		DWORD	1			; it initializes at 1
 	length_count		DWORD	?			; counts the length of the integer
-	counter				DWORD	0			; this will count the term in fib sequence
+	counter				DWORD	0		; this will count the term in fib sequence
 
 ; farewell variables
 	conclusion			BYTE	"Results certified by Luwey Hon", 0
@@ -112,7 +112,7 @@ main PROC
 		call	CrLf
 		mov		edx, OFFSET ec_note_2
 		call	WriteString
-		mov		eax, white + (black * 16)				; back to black and white
+		mov		eax, white + (black * 16)			; back to black and white
 		call	SetTextColor
 		call	CrLf
 		call	CrLf
@@ -123,7 +123,7 @@ main PROC
 		call	WriteString
 		mov		edx, OFFSET user_name			
 		mov		ecx, 32
-		call	ReadString							; stores the user name
+		call	ReadString						; stores the user name
 
 	;saying hello to user
 		mov		edx, OFFSET hello
@@ -161,9 +161,9 @@ main PROC
 	;validating the correct range
 		mov		eax, fib_amount
 		cmp		eax, 1
-		jl		too_small				; if fib_amount < 1
+		jl		too_small			; if fib_amount < 1
 		cmp		eax, 46
-		ja		too_big					; if fib_amount > 46
+		ja		too_big				; if fib_amount > 46
 		jmp		correct_validation		; passed validation test
 
 
@@ -171,9 +171,9 @@ main PROC
 	too_small:
 		mov		eax, lightRed + (black * 16)		; turn error message light red
 		call	SetTextColor
-		mov		edx, OFFSET small_range				; print error message
+		mov		edx, OFFSET small_range			; print error message
 		call	WriteString
-		mov		eax, white + (black * 16)			; back to normal color
+		mov		eax, white + (black * 16)		; back to normal color
 		call	SetTextColor
 		call	CrLf
 		call	CrLf
@@ -183,9 +183,9 @@ main PROC
 	too_big:
 		mov		eax, lightRed + (black * 16)		; turn error message light red
 		call	SetTextColor
-		mov		edx, OFFSET big_range				; print error message
+		mov		edx, OFFSET big_range			; print error message
 		call	WriteString
-		mov		eax, white + (black * 16)			; back to normal color
+		mov		eax, white + (black * 16)		; back to normal color
 		call	SetTextColor
 		call	CrLf
 		call	CrLf
@@ -218,26 +218,26 @@ correct_validation:			; successfully passed validation
 
 	;initialize the loop
 		mov		ecx, fib_amount
-		sub		ecx, 2					; to make sequence start at 3 since first two numbers are = 1
+		sub		ecx, 2				; to make sequence start at 3 since first two numbers are = 1
 		mov		eax, first_fib_num		; move 1 to first fib number
 		mov		ebx, second_fib_num		; move 1 to second fib number
 		add		total_all_sum, 2		; add 2 to current fib sum (for extra credit)
-		add		total_current_sum, 2	; add 2 for all fib sequence sum (for extra credit)
+		add		total_current_sum, 2		; add 2 for all fib sequence sum (for extra credit)
 
 
 	;looping for the fib sequence
 		fib_pattern:
 			add		eax, ebx
-			add		total_all_sum, eax				; calculating the total of all fib sequence tries
+			add		total_all_sum, eax			; calculating the total of all fib sequence tries
 			add		total_current_sum, eax			; calculat total sum of current fib sequence
-			call	WriteDec						; print the new fib num (first fib num + second fib num)
+			call	WriteDec					; print the new fib num (first fib num + second fib num)
 			call	Length_of_int					; finds length of int (to help find even spacing)
 			call	even_spacing					; printing out even spacing (for extra credit)
-			inc		counter							; increase the count for fib sequence
-			call	NewLine							; calls NewLine procedure to test if it needs a new line
-			mov		edx, eax						; need an empty register to store value of first fib num
-			mov		eax, ebx						; first fib num becomes second fib num
-			mov		ebx, edx						; second fib num becomes new fib num
+			inc		counter					; increase the count for fib sequence
+			call	NewLine						; calls NewLine procedure to test if it needs a new line
+			mov		edx, eax				; need an empty register to store value of first fib num
+			mov		eax, ebx				; first fib num becomes second fib num
+			mov		ebx, edx				; second fib num becomes new fib num
 			loop	fib_pattern
 
 finish_fib_sequence::				; for when fib 1 or fib 2 call procedure is done
@@ -415,19 +415,19 @@ main ENDP
 ; Testing to see if we need to print to next line
 	NewLine PROC USES eax ebx ecx edx
 		push	counter
-		add		counter, 2			; since the first two fib numbers are already printed (need this for allignment)
+		add		counter, 2		; since the first two fib numbers are already printed (need this for allignment)
 		mov		eax, counter
 		cdq
 		mov		ebx, 5
-		div		ebx					; dividing the counter by 5
-		cmp		edx, 0				; comparing the remainder to 0
+		div		ebx			; dividing the counter by 5
+		cmp		edx, 0			; comparing the remainder to 0
 		jne		no_call_line		; if remainder != 0, don't call a new line (not divisible by 5)
 		
 		call CrLf				; when it is divisible by 5 it calls a new line		
 	
-		no_call_line:			; when it is not divisble by 5, it does not call a new line
+		no_call_line:				; when it is not divisble by 5, it does not call a new line
 			pop counter			; restore the counter
-			ret					; back to main function
+			ret				; back to main function
 
 	NewLine ENDP
 
