@@ -1,10 +1,6 @@
 TITLE  Fibonacci Numbers   (Project_2.asm)
 
 ; Author: Luwey Hon
-; Last Modified: 4/19/2020
-; OSU email address: honl@oregonstate.edu
-; Course number/section: CS 271 C400
-; Project Number:  2               Due Date: 4/19/20
 ; Description: This program first includes a heading and afterwards presents instructions
 ; to do a fibonacci sequence. It will store their number and present their sequence
 ; in columns of 5. The program will repeat until the user request to quit and displays some
